@@ -27,20 +27,13 @@ const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
         {...props}
       >
         <div className="flex flex-col items-center space-y-6">
-          {/* Avatar and name section */}
+          {/* Avatar and name section - removed card background */}
           <div className="flex flex-col items-center space-y-4 w-full">
-            <div 
-              className="relative p-1.5 rounded-full bg-gradient-to-r from-primary/30 via-purple-400/30 to-pink-400/30"
-              style={{ 
-                boxShadow: "0 0 25px rgba(0, 0, 0, 0.07)"
-              }}
-            >
-              <UserAvatar 
-                src={user.avatar} 
-                name={`${user.first_name} ${user.last_name}`} 
-                size="lg"
-              />
-            </div>
+            <UserAvatar 
+              src={user.avatar} 
+              name={`${user.first_name} ${user.last_name}`} 
+              size="lg"
+            />
             
             <div className="text-center space-y-1">
               <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary/90 to-purple-600/90">

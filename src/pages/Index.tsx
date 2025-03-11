@@ -62,9 +62,9 @@ const Index = () => {
         <div className="absolute top-3/4 right-1/5 h-40 w-40 rounded-full bg-purple-200/20 blur-3xl" />
       </div>
       
-      {/* App logo */}
-      <header className="mb-8 flex flex-col items-center animate-fade-in">
-        <div className="flex items-center space-x-2 mb-6">
+      {/* App logo and search - removed gap */}
+      <header className="mb-2 flex flex-col items-center animate-fade-in">
+        <div className="flex items-center space-x-2 mb-2">
           <div className="bg-primary/10 p-2.5 rounded-xl">
             <UserRound className="h-7 w-7 text-primary" />
           </div>
@@ -85,7 +85,7 @@ const Index = () => {
               className="pl-10 bg-white/50 backdrop-blur-md border-primary/10 shadow-sm focus-visible:ring-primary"
             />
           </div>
-          <div className="mt-3 text-center">
+          <div className="mt-2 text-center">
             <p className="text-sm text-muted-foreground">
               {loading ? 'Loading users...' : `Showing ${totalUsers} user${totalUsers !== 1 ? 's' : ''}`}
             </p>
