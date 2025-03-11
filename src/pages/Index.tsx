@@ -5,6 +5,8 @@ import UserCard from "@/components/UserCard";
 import Navigation from "@/components/Navigation";
 import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
@@ -14,6 +16,8 @@ const Index = () => {
     loading,
     error,
     direction,
+    searchTerm,
+    handleSearch,
     goToNextUser,
     goToPrevUser,
     totalUsers,
@@ -57,17 +61,27 @@ const Index = () => {
         <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-primary/10 blur-3xl opacity-70" />
       </div>
       
-      {/* App header */}
-      <header className="text-center mb-8 animate-fade-in">
-        <div className="inline-block px-3 py-1 bg-primary/10 rounded-full text-primary text-xs font-medium mb-2">
-          User Database
+      {/* Search bar */}
+      <header className="mb-8 animate-fade-in">
+        <div className="max-w-md mx-auto w-full">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <Search className="h-5 w-5 text-primary/70" />
+            </div>
+            <Input
+              type="search"
+              placeholder="Search users by name, username or email..."
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="pl-10 bg-white/30 backdrop-blur-md border-white/20 focus-visible:ring-primary"
+            />
+          </div>
+          <div className="mt-3 text-center">
+            <p className="text-sm text-muted-foreground">
+              {loading ? 'Loading users...' : `Showing ${totalUsers} user${totalUsers !== 1 ? 's' : ''}`}
+            </p>
+          </div>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight">
-          User Details Explorer
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-md mx-auto">
-          Browse through our database of users with seamless navigation
-        </p>
       </header>
       
       <main className="flex-1 flex flex-col items-center mb-24">
@@ -92,12 +106,17 @@ const Index = () => {
                 )}
               />
             </div>
+          ) : totalUsers === 0 ? (
+            <div className="text-center p-8 glass rounded-2xl border border-primary/20 max-w-md w-full mx-auto">
+              <p className="text-lg font-medium mb-2">No matching users found</p>
+              <p className="text-muted-foreground">Try adjusting your search criteria</p>
+            </div>
           ) : null}
         </div>
       </main>
       
       {/* Fixed navigation at bottom */}
-      {!loading && !error && (
+      {!loading && !error && totalUsers > 0 && (
         <div className="fixed bottom-8 left-0 right-0 flex justify-center z-10 animate-fade-in">
           <Navigation
             onPrevious={goToPrevUser}

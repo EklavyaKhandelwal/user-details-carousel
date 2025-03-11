@@ -6,10 +6,12 @@ import { toast } from "sonner";
 
 export function useUsers() {
   const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [direction, setDirection] = useState<'next' | 'prev' | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -22,6 +24,7 @@ export function useUsers() {
           toast.error("No users found.");
         } else {
           setUsers(data);
+          setFilteredUsers(data);
           setError(null);
         }
       } catch (err) {
@@ -35,10 +38,33 @@ export function useUsers() {
     loadUsers();
   }, []);
 
-  const currentUser = users[currentIndex];
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setFilteredUsers(users);
+      setCurrentIndex(0);
+      return;
+    }
+
+    const term = searchTerm.toLowerCase();
+    const filtered = users.filter(user => 
+      user.first_name.toLowerCase().includes(term) ||
+      user.last_name.toLowerCase().includes(term) ||
+      user.username.toLowerCase().includes(term) ||
+      user.email.toLowerCase().includes(term)
+    );
+
+    setFilteredUsers(filtered);
+    setCurrentIndex(0);
+    
+    if (filtered.length === 0) {
+      toast.info("No users match your search criteria.");
+    }
+  }, [searchTerm, users]);
+
+  const currentUser = filteredUsers[currentIndex];
 
   const goToNextUser = () => {
-    if (currentIndex < users.length - 1) {
+    if (currentIndex < filteredUsers.length - 1) {
       setDirection('next');
       setCurrentIndex(prevIndex => prevIndex + 1);
     } else {
@@ -55,15 +81,22 @@ export function useUsers() {
     }
   };
 
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+  };
+
   return {
     users,
+    filteredUsers,
     currentUser,
     currentIndex,
     loading,
     error,
     direction,
+    searchTerm,
+    handleSearch,
     goToNextUser,
     goToPrevUser,
-    totalUsers: users.length,
+    totalUsers: filteredUsers.length,
   };
 }
