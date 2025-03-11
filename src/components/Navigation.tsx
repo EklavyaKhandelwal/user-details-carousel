@@ -22,25 +22,14 @@ const Navigation = ({
   className,
 }: NavigationProps) => {
   return (
-    <div className={cn("flex flex-col space-y-4 items-center", className)}>
-      {/* Navigation counter */}
-      <div className="text-sm text-muted-foreground font-medium">
-        {totalUsers > 0 ? (
-          <span>
-            User {currentIndex + 1} of {totalUsers}
-          </span>
-        ) : (
-          <span>Loading users...</span>
-        )}
-      </div>
-      
+    <div className={cn("flex flex-col items-center", className)}>
       {/* Navigation buttons */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-6 bg-white/30 backdrop-blur-md p-4 rounded-full shadow-lg border border-white/20">
         <button
           onClick={onPrevious}
           disabled={!hasPrevious}
           className={cn(
-            "button-shine h-12 w-12 rounded-full flex items-center justify-center",
+            "button-shine h-14 w-14 rounded-full flex items-center justify-center",
             "transition-all duration-300 ease-out",
             hasPrevious 
               ? "bg-primary text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95" 
@@ -51,11 +40,22 @@ const Navigation = ({
           <ChevronLeft size={24} />
         </button>
         
+        {/* Navigation counter */}
+        <div className="text-sm font-medium px-2 py-1 rounded-full bg-white/50 backdrop-blur-sm">
+          {totalUsers > 0 ? (
+            <span>
+              {currentIndex + 1} / {totalUsers}
+            </span>
+          ) : (
+            <span>Loading...</span>
+          )}
+        </div>
+        
         <button
           onClick={onNext}
           disabled={!hasNext}
           className={cn(
-            "button-shine h-12 w-12 rounded-full flex items-center justify-center",
+            "button-shine h-14 w-14 rounded-full flex items-center justify-center",
             "transition-all duration-300 ease-out",
             hasNext 
               ? "bg-primary text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95" 

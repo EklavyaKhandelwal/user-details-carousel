@@ -20,13 +20,13 @@ const UserInfoField = ({
   return (
     <div 
       className={cn(
-        "flex flex-col space-y-1 animate-slide-up",
+        "flex flex-col space-y-1.5 animate-slide-up bg-white/30 backdrop-blur-sm p-3 rounded-lg border border-white/20",
         className
       )}
       style={style}
     >
       <div className="flex items-center space-x-2">
-        {icon && <span className="text-primary/70">{icon}</span>}
+        {icon && <span className="text-primary">{icon}</span>}
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {label}
         </p>

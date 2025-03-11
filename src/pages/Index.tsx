@@ -49,7 +49,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col py-12 px-4 sm:px-6 md:px-8">
+    <div className="min-h-screen flex flex-col py-8 px-4 sm:px-6 md:px-8 relative">
       {/* Background elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-secondary/10" />
@@ -70,7 +70,7 @@ const Index = () => {
         </p>
       </header>
       
-      <main className="flex-1 flex flex-col items-center">
+      <main className="flex-1 flex flex-col items-center mb-24">
         {/* User card container with animation state */}
         <div className="relative w-full max-w-md mb-8 h-[460px] flex items-center justify-center">
           {loading ? (
@@ -94,9 +94,11 @@ const Index = () => {
             </div>
           ) : null}
         </div>
-        
-        {/* Navigation controls */}
-        {!loading && !error && (
+      </main>
+      
+      {/* Fixed navigation at bottom */}
+      {!loading && !error && (
+        <div className="fixed bottom-8 left-0 right-0 flex justify-center z-10 animate-fade-in">
           <Navigation
             onPrevious={goToPrevUser}
             onNext={goToNextUser}
@@ -104,13 +106,12 @@ const Index = () => {
             hasNext={currentIndex < totalUsers - 1}
             currentIndex={currentIndex}
             totalUsers={totalUsers}
-            className="animate-fade-in"
           />
-        )}
-      </main>
+        </div>
+      )}
       
       {/* App footer */}
-      <footer className="mt-12 text-center text-sm text-muted-foreground animate-fade-in">
+      <footer className="mt-auto pb-4 text-center text-sm text-muted-foreground animate-fade-in">
         <p>
           Designed with minimalist principles inspired by Apple
         </p>
