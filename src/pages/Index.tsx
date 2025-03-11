@@ -6,7 +6,7 @@ import Navigation from "@/components/Navigation";
 import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Index = () => {
@@ -53,16 +53,25 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col py-8 px-4 sm:px-6 md:px-8 relative">
+    <div className="min-h-screen flex flex-col py-8 px-4 sm:px-6 md:px-8 relative bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Background elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-secondary/10" />
-        <div className="absolute top-0 right-1/4 h-56 w-56 rounded-full bg-primary/10 blur-3xl opacity-70" />
-        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-primary/10 blur-3xl opacity-70" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-100/30 to-purple-100/40" />
+        <div className="absolute top-1/4 right-1/3 h-64 w-64 rounded-full bg-pink-200/20 blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/3 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl" />
+        <div className="absolute top-3/4 right-1/5 h-40 w-40 rounded-full bg-purple-200/20 blur-3xl" />
       </div>
       
-      {/* Search bar */}
-      <header className="mb-8 animate-fade-in">
+      {/* App logo */}
+      <header className="mb-8 flex flex-col items-center animate-fade-in">
+        <div className="flex items-center space-x-2 mb-6">
+          <div className="bg-primary/10 p-2.5 rounded-xl">
+            <UserRound className="h-7 w-7 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">UserFinder</h1>
+        </div>
+        
+        {/* Search bar */}
         <div className="max-w-md mx-auto w-full">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -73,7 +82,7 @@ const Index = () => {
               placeholder="Search users by name, username or email..."
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}
-              className="pl-10 bg-white/30 backdrop-blur-md border-white/20 focus-visible:ring-primary"
+              className="pl-10 bg-white/50 backdrop-blur-md border-primary/10 shadow-sm focus-visible:ring-primary"
             />
           </div>
           <div className="mt-3 text-center">
@@ -107,7 +116,7 @@ const Index = () => {
               />
             </div>
           ) : totalUsers === 0 ? (
-            <div className="text-center p-8 glass rounded-2xl border border-primary/20 max-w-md w-full mx-auto">
+            <div className="text-center p-8 glass rounded-2xl border border-primary/20 shadow-xl max-w-md w-full mx-auto">
               <p className="text-lg font-medium mb-2">No matching users found</p>
               <p className="text-muted-foreground">Try adjusting your search criteria</p>
             </div>
@@ -131,8 +140,8 @@ const Index = () => {
       
       {/* App footer */}
       <footer className="mt-auto pb-4 text-center text-sm text-muted-foreground animate-fade-in">
-        <p>
-          Designed with minimalist principles inspired by Apple
+        <p className="bg-white/40 backdrop-blur-sm rounded-full px-4 py-2 inline-block">
+          Designed with ❤️ for a polished user experience
         </p>
       </footer>
     </div>
